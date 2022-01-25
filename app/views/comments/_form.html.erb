@@ -1,0 +1,15 @@
+<%= form_with model: [@article, @article.comments.build] do |form|%>
+    <div>
+        <%= form.label :commenter, class:"form-label"%> <br>
+        <%= form.text_field :commenter, class:"form-control" %> <br>
+    </div>
+
+    <div>
+        <%= form.label :body, class:"form-label" %> <br>
+        <%= form.text_area :body, class:"form-control" %> <br>
+    </div>
+    
+    <div>
+        <%= form.submit class:"btn btn-info text-light"%>
+    </div>
+<% end %>

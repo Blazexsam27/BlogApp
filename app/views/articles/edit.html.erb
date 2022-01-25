@@ -1,0 +1,6 @@
+<div class="container"><h1>Edit Article</h1></div>
+<% if user_signed_in? %>
+    <%= render "form", article: @article %>
+<% else %>
+    <h3 style="color:red">Please register or sign in to your account to create a new article</h3>
+<% end %>
