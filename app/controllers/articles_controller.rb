@@ -1,11 +1,20 @@
 class ArticlesController < ApplicationController
   def index
-    @user_id = User.find(params[:user_id])
-    @articles = Article.find_by(user_id:@user_id.id)
+    if user_signed_in?
+      @articles = []
+      Article.where(user_id: current_user.id).find_each do |article|
+        @articles.push(article)
+      end
+    else
+      @articles = Article.all
+    end 
+    
   end
 
   def show
-    @article = Article.find(params[:id])
+    if user_signed_in?  
+      @article = Article.find(params[:id])
+    end 
   end
 
   def new

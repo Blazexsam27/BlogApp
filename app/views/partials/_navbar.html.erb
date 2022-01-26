@@ -64,13 +64,6 @@
             <%= button_to "LogOut", destroy_user_session_path, method: :delete, class:'logOutbtn' %>
           </li>
         <% end %>
-        
-        <% if user_signed_in? %>
-          <li class="nav-item"> 
-            <%= link_to "MyArticles", user_articles_path(current_user.id), class:'subHeader' %>
-          </li>
-        <% end %>
-
       </ul>
     </div>
   </div>
