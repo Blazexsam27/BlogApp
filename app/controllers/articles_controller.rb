@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
+    @user_id = User.find(params[:user_id])
+    @articles = Article.find_by(user_id:@user_id.id)
   end
 
   def show
@@ -8,14 +9,17 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article = Article.new()
   end
 
   def create
-    @article = Article.new(article_params)
+    @user = User.find(params[:user_id])
+    @article = @user.articles.create(article_params)
+    print(@user)
+    # @article = Article.new(article_params)
     if @article.save
       flash[:notice] = "Article Created Successfully!"
-        redirect_to root_path
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
