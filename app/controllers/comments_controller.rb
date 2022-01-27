@@ -8,8 +8,11 @@ class CommentsController < ApplicationController
     def create
         @article = Article.find(params[:article_id])
         @comment = @article.comments.create(comment_params)
-        @comment.save
-        redirect_to user_article_path(current_user.id, @article.id)
+        if @comment.save
+            redirect_to user_article_path(current_user.id, @article.id)
+        else
+            redirect_to :new, status :unprocessable_entity
+        end
     end
 
     private
