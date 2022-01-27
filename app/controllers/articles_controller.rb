@@ -19,6 +19,8 @@ class ArticlesController < ApplicationController
     print(@user)
     if @article.save
       flash[:notice] = "Article Created Successfully!"
+      html = ApplicationController.render(partial: "articles/single_article", locals: {article: @article})
+      ActionCable.server.broadcast('articles_channel', html)
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity
@@ -43,6 +45,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
     flash[:notice] = "Article Deleted Successfully!"
+    ActionCable.server.broadcast('delete_article_channel', "deleted article")
     redirect_to root_path, status: :see_other
   end
 
