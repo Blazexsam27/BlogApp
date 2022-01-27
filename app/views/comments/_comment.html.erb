@@ -1,8 +1,10 @@
 <div style="padding: 5px">
+<% @article.comments.each do |comment| %>
         <div style="background-color: #008cff; padding:10px; color: white;" class="my-1">
             <p> 
-            Commenter:<strong>  <%= comment.commenter%></strong> <br>
-            Comment: <strong> <%= comment.body %></strong> 
+                <p>username: <b><%= comment.commenter  %></b></p>
+                <p><%= comment.body  %></p>
             </p>
         </div>
+        <% end %>
     </div>

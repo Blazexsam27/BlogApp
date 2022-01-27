@@ -1,0 +1,6 @@
+<div class="container"><h1>New Comment</h1></div>
+<% if user_signed_in? %>
+    <%= render "comments/form", comment: @comment %>
+<% else %>
+    <h1>Please register or sign in to your account to create a new comment</h1>
+<% end %>

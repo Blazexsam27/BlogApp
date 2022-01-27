@@ -1,14 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    if user_signed_in?
-      @articles = []
-      Article.where(user_id: current_user.id).find_each do |article|
-        @articles.push(article)
-      end
-    else
       @articles = Article.all
-    end 
-    
   end
 
   def show
@@ -25,7 +17,6 @@ class ArticlesController < ApplicationController
     @user = User.find(params[:user_id])
     @article = @user.articles.create(article_params)
     print(@user)
-    # @article = Article.new(article_params)
     if @article.save
       flash[:notice] = "Article Created Successfully!"
       redirect_to root_path
@@ -55,9 +46,17 @@ class ArticlesController < ApplicationController
     redirect_to root_path, status: :see_other
   end
 
+  def show_my_articles
+    @articles = []
+    if user_signed_in?
+      Article.where(user_id: current_user.id).find_each do |article|
+        @articles.push(article)
+      end
+    end
+  end
+
   private
   def article_params
     params.require(:article).permit(:title, :body)
   end
-
 end
