@@ -4,9 +4,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    if user_signed_in?  
-      @article = Article.find(params[:id])
-    end 
+    @article = Article.find(params[:id])
   end
 
   def new
@@ -25,6 +23,7 @@ class ArticlesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+
   end
 
   def edit
@@ -32,7 +31,9 @@ class ArticlesController < ApplicationController
   end
 
   def update 
-    @article = Article.find(params[:id])
+    @user = User.find(params[:user_id])
+    # @article = Article.find(params[:id])
+    @article = @user.articles.update(article_params)
     if @article.update(article_params)
       flash[:notice] = "Article Updated Successfully!"
       redirect_to root_path
@@ -45,7 +46,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
     flash[:notice] = "Article Deleted Successfully!"
-    ActionCable.server.broadcast('delete_article_channel', "deleted article")
+    ActionCable.server.broadcast('delete_article_channel', "article_" + @article.id.to_s)
     redirect_to root_path, status: :see_other
   end
 

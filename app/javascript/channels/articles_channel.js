@@ -10,9 +10,7 @@ consumer.subscriptions.create("ArticlesChannel", {
   },
 
   received(data) {
-    console.log("Article List Updated!");
     var newArticle = data;
-
     articleList.innerHTML = articleList.innerHTML + newArticle;
   },
 });

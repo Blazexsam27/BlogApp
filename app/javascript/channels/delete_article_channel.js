@@ -11,6 +11,7 @@ consumer.subscriptions.create("DeleteArticleChannel", {
   },
 
   received(data) {
-    console.log("Deletion successfull");
+    var deleted_article = document.getElementById(data);
+    deleted_article.remove();
   },
 });
