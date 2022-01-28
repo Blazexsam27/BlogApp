@@ -32,7 +32,6 @@ class ArticlesController < ApplicationController
 
   def update 
     @user = User.find(params[:user_id])
-    # @article = Article.find(params[:id])
     @article = @user.articles.update(article_params)
     if @article.update(article_params)
       flash[:notice] = "Article Updated Successfully!"
@@ -61,6 +60,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body, :image)
   end
 end

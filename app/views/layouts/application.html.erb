@@ -6,8 +6,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
-
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= javascript_importmap_tags %>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 

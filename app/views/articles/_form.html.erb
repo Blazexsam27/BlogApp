@@ -1,5 +1,5 @@
 <div class="container">
-    <%= form_with model: [current_user, current_user.articles.build] do |form| %>
+    <%= form_with model: [current_user, current_user.articles.build], multipart: true do |form| %>
         <div>
             <%= form.label :title, class:"form-label"%> <br>
             <%= form.text_field :title, class:"form-control" %> <br>
@@ -12,6 +12,14 @@
             <%= form.label :body, class:"form-label" %> <br>
             <%= form.text_area :body, class:"form-control" %> <br>
             <% article.errors.full_messages_for(:body).each do |message| %>
+                <%= message %>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.label :image, class:"form-label" %> <br>
+            <%= form.file_field :image, class:"form-control" %> <br>
+            <% article.errors.full_messages_for(:image).each do |message| %>
                 <%= message %>
             <% end %>
         </div>
