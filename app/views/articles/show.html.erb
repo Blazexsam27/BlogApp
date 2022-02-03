@@ -5,6 +5,7 @@
     }
     #likebtn{
         margin: 5px;
+        transition:0.3s;
     }
     #likebtn:hover{
         width: 28px;
@@ -13,6 +14,10 @@
     #oprButtons{
         padding-left: 0;
         padding-right: 0;
+    }
+    .articleImage{
+        width: 200px;
+        heigth: 300px;
     }
 </style>
     
@@ -28,29 +33,38 @@
     }
 </script>
 
-<div class="container">
-    <h1><%= @article.title %></h1>
-    <p><%= @article.body %></p>
+<div class="container col-xxl-8 px-4 py-5">
+<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+        <%= image_tag(@article.image.url, alt:"Image", class:"articleImage")%>
     
-    <div class="container my-3" id="oprButtons">
-    <% if user_signed_in? and current_user.id == @article.user_id %>
-            <%= link_to "Edit", edit_user_article_path(current_user.id, @article.id), class:"btn btn-primary text-light" %>
-
-            <%= link_to "Delete", user_article_path(@article.id), data: {
-                turbo_method: :delete,
-                turbo_confirm: "Are you sure?"
-            }, class:"btn btn-danger text-light"%>
-            <br> <br>
-
-        <svg id='likebtn' onclick="likeToggle()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-heart-fill" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-        </svg>
-    <% end %>
-
     </div>
-    <% if user_signed_in? %>
-      <%= link_to "Create Comment", new_user_article_comment_path(current_user.id, @article.id), class:"btn btn-info text-light" %>
+    <div class="col-lg-6">
+    <h1 class="display-5 fw-bold lh-1 mb-3"><%= @article.title %></h1>
+    <p class="lead"><%= @article.body %></p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+    <% if user_signed_in? and current_user.id == @article.user_id %>
+        <%= link_to "Edit", edit_user_article_path(current_user.id, @article.id), class:"btn btn-primary btn-lg px-4 me-md-2" %>
+        <%= link_to "Delete", user_article_path(@article.id), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+        }, class:"btn btn-outline-danger btn-lg px-4"%>
+        <br> <br>
     <% end %>
-    
+    </div>
+    </div>
+</div>
+
+
+<svg id='likebtn' onclick="likeToggle()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-heart-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg>
+
+<% if user_signed_in? %>
+    <%= link_to "Create Comment", new_user_article_comment_path(current_user.id, @article.id), class:"btn btn-info text-light" %>
+<% end %>
+
+</div>
+
 </div>
     <%= render 'comments/comment', locals: {comments: @article.comments} %>
