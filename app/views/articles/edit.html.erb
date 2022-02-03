@@ -1,6 +1,35 @@
 <div class="container"><h1>Edit Article</h1></div>
 <% if user_signed_in? %>
-    <%= render "form", article: @article %>
+    <div class="container">
+    <%= form_with model: @article, url: user_article_path(), multipart: true do |form| %>
+        <div>
+            <%= form.label :title, class:"form-label"%> <br>
+            <%= form.text_field :title, class:"form-control" %> <br>
+            <% @article.errors.full_messages_for(:title).each do |message|%> 
+                <%= message %>
+            <% end%>
+        </div>
+
+        <div>
+            <%= form.label :body, class:"form-label" %> <br>
+            <%= form.text_area :body, class:"form-control" %> <br>
+            <% @article.errors.full_messages_for(:body).each do |message| %>
+                <%= message %>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.label :image, class:"form-label" %> <br>
+            <%= form.file_field :image, class:"form-control" %> <br>
+            <% @article.errors.full_messages_for(:image).each do |message| %>
+                <%= message %>
+            <% end %>
+        </div>
+        <div>
+            <%= form.submit class:"btn btn-info"%>
+        </div>
+    <% end %>
+</div>
 <% else %>
     <h3 style="color:red">Please register or sign in to your account to create a new article</h3>
 <% end %>
