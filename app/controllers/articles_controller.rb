@@ -1,6 +1,12 @@
 class ArticlesController < ApplicationController
   def index
       @articles = Article.all
+      @args = params[:args]
+      if @args == 'latest'
+        @articles = RetrieveArticle.new.get_latest_articles
+      elsif @args == 'oldest'
+        @articles = RetrieveArticle.new.get_oldest_articles
+      end
   end
 
   def show
