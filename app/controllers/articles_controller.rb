@@ -1,6 +1,12 @@
 class ArticlesController < ApplicationController
   def index
       @articles = Article.all
+      @args = params[:args]
+      if @args == 'latest'
+        @articles = RetrieveArticle.new.get_latest_articles
+      elsif @args == 'oldest'
+        @articles = RetrieveArticle.new.get_oldest_articles
+      end
   end
 
   def show
@@ -31,13 +37,12 @@ class ArticlesController < ApplicationController
   end
 
   def update 
-    @user = User.find(params[:user_id])
-    @article = @user.articles.update(article_params)
+    @article = Article.find(params[:id])
     if @article.update(article_params)
       flash[:notice] = "Article Updated Successfully!"
       redirect_to root_path
     else
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -60,6 +65,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :body, :image)
+    params.require(:article).permit(:title, :body)
   end
 end

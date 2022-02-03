@@ -61,15 +61,24 @@
             <%= link_to "Edit Profile", edit_user_registration_path, class:'subHeader'%>
           </li>
         <% end %>
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= button_to "LogOut", destroy_user_session_path, method: :delete, class:'logOutbtn' %>
-          </li>
-        <% end %>
 
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to "MyArticles", myarticles_path(current_user.id), class:'subHeader' %>
+          </li>
+        <% end %>
+
+          <li class="nav-item">
+            <%= link_to "Latest Articles", queryarticles_path(current_user.id, "latest"), class:'subHeader' %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Oldest Articles", queryarticles_path(current_user.id, "oldest"), class:'subHeader' %>
+          </li>
+
+          <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= button_to "LogOut", destroy_user_session_path, method: :delete, class:'logOutbtn' %>
           </li>
         <% end %>
       </ul>
