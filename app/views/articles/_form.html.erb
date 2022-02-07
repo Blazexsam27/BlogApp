@@ -1,17 +1,17 @@
 <div class="container">
-    <%= form_with model: article do |form| %>
+    <%= form_with model: [current_user, current_user.articles.build] do |form| %>
         <div>
             <%= form.label :title, class:"form-label"%> <br>
             <%= form.text_field :title, class:"form-control" %> <br>
-            <% article.errors.full_messages_for(:title).each do |message|%>
+            <% article.errors.full_messages_for(:title).each do |message|%> 
                 <%= message %>
-            <% end %>
+            <% end%>
         </div>
 
         <div>
             <%= form.label :body, class:"form-label" %> <br>
             <%= form.text_area :body, class:"form-control" %> <br>
-            <% article.errors.full_messages_for(:body).each do |message|%>
+            <% article.errors.full_messages_for(:body).each do |message| %>
                 <%= message %>
             <% end %>
         </div>

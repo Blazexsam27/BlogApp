@@ -3,33 +3,54 @@
         text-decoration:none;
         color: white;
     }
+    #likebtn{
+        margin: 5px;
+    }
+    #likebtn:hover{
+        width: 28px;
+        height: 28px;
+    }
 </style>
+    
+<script>
+    function likeToggle(){
+        var likebtn = document.getElementById("likebtn");
+        if( likebtn.style.fill === "red" ){
+            likebtn.style.fill = "grey";
+        }
+        else{
+            likebtn.style.fill = "red";
+        }
+    }
+</script>
+
 <div class="container">
     <h1><%= @article.title %></h1>
     <p><%= @article.body %></p>
+    
     <div class="container my-3" >
     <% if user_signed_in? %>
         <button class="btn btn-primary ">
-            <%= link_to "Edit", edit_article_path(@article) %>
+            <%= link_to "Edit", edit_user_article_path(current_user.id, @article.id) %>
         </button>
        
         <button class="btn btn-danger">
-            <%= link_to "Delete", article_path(@article), data: {
+            <%= link_to "Delete", user_article_path(@article.id), data: {
                 turbo_method: :delete,
                 turbo_confirm: "Are you sure?"
             }%>
-        </button>
+        </button> <br> <br>
+
+        <svg id='likebtn' onclick="likeToggle()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg>
+
     <% end %>
     </div>
-
-    <%= render @article.comments %>
-
     <% if user_signed_in? %>
-        <div>
-            <h2>Add a comment</h2>
-            <%= render 'comments/form'%>
-        </div>
-    <% else %>
-        <h4>To add a comment please sign Up/ sign In</h4>
-    <%end%>
+      <button class="btn btn-info">  <%= link_to "Create Comment", new_user_article_comment_path(current_user.id, @article.id) %>
+      </button>
+    <% end %>
+    <%= render 'comments/comment', locals: {comments: @article.comments} %>
+    
 </div>

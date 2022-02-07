@@ -1,7 +1,6 @@
 <h2>Articles</h2>
-<%# TODO: fix 'keys' error %>
-<%= render "articles/articles", locals: {articles: @articles} %>
 
+<%= render "articles/articles", locals: {articles: @articles} %>
   <% if user_signed_in? %>
     <div>
         <button class="btn btn-primary my-2">
