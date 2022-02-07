@@ -1,0 +1,15 @@
+<div class="accordion-item" id="article_<%= article.id %>">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= article.id %>" aria-expanded="true" 
+      aria-controls="collapse<%= article.id %>">
+        <%= article.title %>
+      </button>
+    </h2>
+    <div id="collapse<%= article.id %>" class="accordion-collapse collapse" aria-labelledby="headingOne" 
+    data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <%= article.body %> <br/>
+            <%= link_to "Read More", user_article_path(article.user_id, article.id), class:"btn btn-info my-2" %>
+      </div>
+    </div>
+  </div>

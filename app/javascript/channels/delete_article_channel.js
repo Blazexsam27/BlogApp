@@ -1,8 +1,9 @@
 import consumer from "channels/consumer";
 var articleList = document.getElementById("articleListAccordian");
-consumer.subscriptions.create("ArticlesChannel", {
+
+consumer.subscriptions.create("DeleteArticleChannel", {
   connected() {
-    console.log("Articles channel connected");
+    console.log("Delete Articles channel connected");
   },
 
   disconnected() {
@@ -10,7 +11,7 @@ consumer.subscriptions.create("ArticlesChannel", {
   },
 
   received(data) {
-    var newArticle = data;
-    articleList.innerHTML = articleList.innerHTML + newArticle;
+    var deleted_article = document.getElementById(data);
+    deleted_article.remove();
   },
 });

@@ -1,5 +1,4 @@
 <h2>Articles</h2>
-<%# TODO: fix 'keys' error %>
 <%= render "articles/articles", locals: {articles: @articles} %>
 
   <% if user_signed_in? %>
@@ -8,4 +7,4 @@
             <%= link_to "Create New Article", new_user_article_path(current_user.id), style:"text-decoration:none; color:white" %>
         </button>
     </div>
-    <% end %>
+  <% end %>

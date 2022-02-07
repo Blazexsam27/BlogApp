@@ -10,6 +10,10 @@
         width: 28px;
         height: 28px;
     }
+    #oprButtons{
+        padding-left: 0;
+        padding-right: 0;
+    }
 </style>
     
 <script>
@@ -28,29 +32,25 @@
     <h1><%= @article.title %></h1>
     <p><%= @article.body %></p>
     
-    <div class="container my-3" >
-    <% if user_signed_in? %>
-        <button class="btn btn-primary ">
-            <%= link_to "Edit", edit_user_article_path(current_user.id, @article.id) %>
-        </button>
-       
-        <button class="btn btn-danger">
+    <div class="container my-3" id="oprButtons">
+    <% if user_signed_in? and current_user.id == @article.user_id %>
+            <%= link_to "Edit", edit_user_article_path(current_user.id, @article.id), class:"btn btn-primary text-light" %>
+
             <%= link_to "Delete", user_article_path(@article.id), data: {
                 turbo_method: :delete,
                 turbo_confirm: "Are you sure?"
-            }%>
-        </button> <br> <br>
+            }, class:"btn btn-danger text-light"%>
+            <br> <br>
 
         <svg id='likebtn' onclick="likeToggle()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-heart-fill" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
         </svg>
-
     <% end %>
+
     </div>
     <% if user_signed_in? %>
-      <button class="btn btn-info">  <%= link_to "Create Comment", new_user_article_comment_path(current_user.id, @article.id) %>
-      </button>
+      <%= link_to "Create Comment", new_user_article_comment_path(current_user.id, @article.id), class:"btn btn-info text-light" %>
     <% end %>
-    <%= render 'comments/comment', locals: {comments: @article.comments} %>
     
 </div>
+    <%= render 'comments/comment', locals: {comments: @article.comments} %>

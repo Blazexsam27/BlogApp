@@ -1,6 +1,14 @@
 <div style="padding: 5px">
 <% @article.comments.each do |comment| %>
-        <div style="background-color: #008cff; padding:10px; color: white;" class="my-1">
+    <style>
+        .commentContainer{
+            background-color: #008cff; 
+            padding:10px; 
+            color: white;
+            margin-top: 3px;
+        }
+    </style>
+        <div class='commentContainer'>
             <p> 
                 <p>username: <b><%= comment.commenter  %></b></p>
                 <p><%= comment.body  %></p>
