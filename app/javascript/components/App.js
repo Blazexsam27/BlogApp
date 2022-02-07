@@ -5,21 +5,33 @@ import SingleArticle from "./SingleArticle.js";
 import SignUpForm from "./SignUpForm.js";
 import SignInForm from "./SignInForm.js";
 import Navbar from "./Navbar.js";
+import CreateArticle from "./CreateArticle.js";
+import EditArticle from "./EditArticle.js";
 
 export default function App() {
   return (
     <>
-      <Navbar />
       <Router>
+        <Navbar />
         <Switch>
-          <Route exact path="/" component={Articles} />
+          <Route exact path="/app" component={Articles} />
           <Route
             exact
-            path="/users/:user_id/articles/:id"
+            path="/app/users/1/articles/new"
+            component={CreateArticle}
+          />
+          <Route
+            exact
+            path="/app/users/:user_id/articles/:id"
             component={SingleArticle}
           />
-          <Route exact path="/users/sign_up" component={SignUpForm} />
-          <Route exact path="/users/sign_in" component={SignInForm} />
+          <Route
+            exact
+            path="/app/users/:user_id/articles/:id/edit"
+            component={EditArticle}
+          />
+          <Route exact path="/app/users/sign_up" component={SignUpForm} />
+          <Route exact path="/app/users/sign_in" component={SignInForm} />
         </Switch>
       </Router>
     </>

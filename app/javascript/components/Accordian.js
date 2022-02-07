@@ -28,7 +28,10 @@ export default function Accordian(props) {
           <div className="accordion-body">
             {articleBody}
             <br />
-            <Link to={"/users/1/articles/" + articleId}>
+            <Link
+              to={"/app/users/1/articles/" + articleId}
+              state={{ from: "1" }}
+            >
               <button className="btn btn-info my-2 text-white">
                 Read More
               </button>

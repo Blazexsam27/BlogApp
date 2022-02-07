@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-4">
       <div className="container-fluid">
-        <Link to="/">
+        <Link to="/app">
           <li className="nav-item h3 mx-3">Blog</li>
         </Link>
         <button
@@ -22,13 +22,13 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <Link to="/">
+            <Link to={"/app"}>
               <li className="nav-item mx-1">Home</li>
             </Link>
-            <Link to="/users/sign_in">
+            <Link to={"/app/users/sign_in"}>
               <li className="nav-item mx-1">Sign In</li>
             </Link>
-            <Link to="/users/sign_up">
+            <Link to={"/app/users/sign_up"}>
               <li className="nav-item mx-1">Sign Up</li>
             </Link>
           </ul>
