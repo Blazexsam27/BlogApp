@@ -7,10 +7,12 @@ class ArticlesController < ApplicationController
       elsif @args == 'oldest'
         @articles = RetrieveArticle.new.get_oldest_articles
       end
+      render json: @articles
   end
 
   def show
     @article = Article.find(params[:id])
+    render json: @article
   end
 
   def new
@@ -65,6 +67,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body, :image)
   end
 end
