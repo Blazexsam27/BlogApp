@@ -7,12 +7,24 @@ import SignInForm from "./SignInForm.js";
 import Navbar from "./Navbar.js";
 import CreateArticle from "./CreateArticle.js";
 import EditArticle from "./EditArticle.js";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client";
 
+const csrfToken = document
+  .querySelector("meta[name=csrf-token]")
+  .getAttribute("content");
 const client = new ApolloClient({
+  link: new HttpLink({
+    credentials: "same-origin",
+    headers: {
+      "X-CORS-TOKEN": csrfToken,
+    },
+  }),
   cache: new InMemoryCache(),
-  uri: "https://localhost:3000/graphql",
-  credentials: "same-origin",
 });
 
 export default function App() {

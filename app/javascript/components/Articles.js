@@ -8,14 +8,13 @@ import { LOAD_ARTICLES } from "./Queries";
 
 export default function Articles() {
   const [articles, setArticles] = useState([]);
-  const response = useQuery(LOAD_ARTICLES);
+  const { loading, error, data } = useQuery(LOAD_ARTICLES);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/users/1/articles").then((response) => {
-      setArticles(response.data);
-    });
-    console.log(response);
-  }, [articles.length]);
+    if (data !== undefined) {
+      setArticles(data.articles);
+    }
+  }, [articles.length, data]);
 
   const articleList = articles.map((article) => {
     return (
