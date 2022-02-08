@@ -7,33 +7,54 @@ import SignInForm from "./SignInForm.js";
 import Navbar from "./Navbar.js";
 import CreateArticle from "./CreateArticle.js";
 import EditArticle from "./EditArticle.js";
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+
+const csrfToken = document
+  .querySelector("meta[name=csrf-token]")
+  .getAttribute("content");
+const client = new ApolloClient({
+  link: new HttpLink({
+    credentials: "same-origin",
+    headers: {
+      "X-CORS-TOKEN": csrfToken,
+    },
+  }),
+  cache: new InMemoryCache(),
+});
 
 export default function App() {
   return (
     <>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/app" component={Articles} />
-          <Route
-            exact
-            path="/app/users/1/articles/new"
-            component={CreateArticle}
-          />
-          <Route
-            exact
-            path="/app/users/:user_id/articles/:id"
-            component={SingleArticle}
-          />
-          <Route
-            exact
-            path="/app/users/:user_id/articles/:id/edit"
-            component={EditArticle}
-          />
-          <Route exact path="/app/users/sign_up" component={SignUpForm} />
-          <Route exact path="/app/users/sign_in" component={SignInForm} />
-        </Switch>
-      </Router>
+      <ApolloProvider client={client}>
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route exact path="/app" component={Articles} />
+            <Route
+              exact
+              path="/app/users/1/articles/new"
+              component={CreateArticle}
+            />
+            <Route
+              exact
+              path="/app/users/:user_id/articles/:id"
+              component={SingleArticle}
+            />
+            <Route
+              exact
+              path="/app/users/:user_id/articles/:id/edit"
+              component={EditArticle}
+            />
+            <Route exact path="/app/users/sign_up" component={SignUpForm} />
+            <Route exact path="/app/users/sign_in" component={SignInForm} />
+          </Switch>
+        </Router>
+      </ApolloProvider>
     </>
   );
 }

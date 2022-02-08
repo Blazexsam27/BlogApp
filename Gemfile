@@ -74,3 +74,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "graphql", "~> 1.13"
+gem "graphiql-rails", group: :development

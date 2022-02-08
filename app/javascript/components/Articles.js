@@ -3,14 +3,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Accordian from "./Accordian";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { LOAD_ARTICLES } from "./Queries";
 
 export default function Articles() {
   const [articles, setArticles] = useState([]);
+  const { loading, error, data } = useQuery(LOAD_ARTICLES);
+
   useEffect(() => {
-    axios.get("http://localhost:3000/users/1/articles").then((response) => {
-      setArticles(response.data);
-    });
-  }, [articles.length]);
+    if (data !== undefined) {
+      setArticles(data.articles);
+    }
+  }, [articles.length, data]);
 
   const articleList = articles.map((article) => {
     return (
